@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Helmet from 'react-helmet';
+import { StylesProvider } from "@material-ui/styles";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Main from "./pages/Main";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+        <Helmet defaultTitle={`todo minishop`} />
+        <StylesProvider injectFirst>
+            <Router>
+                <Routes>
+                    <Route path='/signIn' exact element={<SignIn />}></Route>
+                    <Route path='/signUp' exact element={<SignUp />}></Route>
+                    <Route path='/' exact element={<Main />}></Route>
+                </Routes>
+            </Router>
+        </StylesProvider>
+    </React.Fragment>
   );
 }
 
