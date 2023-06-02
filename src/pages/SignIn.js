@@ -12,35 +12,48 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {check, signIn} from "../services/AuthService";
+import {AUTH_ACCESS_TOKEN} from "../utils/constrants";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function Login() {
+
+    React.useEffect(() => {
+        const authAccessToken = localStorage.getItem(AUTH_ACCESS_TOKEN);
+
+        check(authAccessToken).then((res) => {
+            if (res.status == 200) {
+
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    })
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const formData = new FormData(event.currentTarget);
+
+        const data = {
+            username: formData.get('username'),
+            password: formData.get('password')
+        }
+
+        signIn(data).then((res) => {
+            if (res.status == 200) {
+                console.log('로그인 완료')
+                localStorage.setItem(AUTH_ACCESS_TOKEN, res.data.accessToken);
+                window.location.href = '/';
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
     };
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs" style={{border: "1px solid black"}}>
+            <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
                     sx={{
@@ -61,10 +74,9 @@ export default function SignIn() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="Username"
+                            name="username"
                             autoFocus
                         />
                         <TextField
@@ -75,11 +87,10 @@ export default function SignIn() {
                             label="Password"
                             type="password"
                             id="password"
-                            autoComplete="current-password"
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
+                            label="자동 로그인"
                         />
                         <Button
                             type="submit"
@@ -92,18 +103,17 @@ export default function SignIn() {
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
-                                    Forgot password?
+                                    패스워드 찾기
                                 </Link>
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    회원가입
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );

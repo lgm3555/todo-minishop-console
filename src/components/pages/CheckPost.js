@@ -20,7 +20,7 @@ function CheckPost(props) {
                         component="img"
                         alt="green iguana"
                         height="140"
-                        image="./test.png"
+                        image=""
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
