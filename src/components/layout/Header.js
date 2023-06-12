@@ -5,9 +5,18 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Grid from "@mui/material/Grid";
+import {signOut} from "../../services/AuthService";
 
 function Header(props) {
     const { sections, title } = props;
+
+    const handleLogin = () => {
+        if (props.status) {
+            signOut().then()
+        } else {
+            window.location.href = '/signIn';
+        }
+    }
 
     return (
         <React.Fragment>
@@ -27,7 +36,7 @@ function Header(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={2} sx={{textAlign: 'right'}}>
-                    <Button size="small">로그인</Button>
+                    <Button onClick={() => handleLogin} size="small">{props.status ? '로그인' : '로그아웃'}</Button>
                 </Grid>
             </Grid>
             <Toolbar

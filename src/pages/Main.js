@@ -7,6 +7,7 @@ import MainFeaturedPost from '../components/pages/MainFeaturedPost';
 import CheckPost from '../components/pages/CheckPost';
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import {check} from "../services/AuthService";
 
 const sections = [
     { title: 'Top', url: '#' },
@@ -111,11 +112,23 @@ const featuredPosts = [
 const theme = createTheme();
 
 export default function Main() {
+
+    const [status, setStatus] = React.useState(false);
+
+    React.useEffect(() => {
+        check().then((res) => {
+            if (res.data == 'user') setStatus(true)
+            else setStatus(false)
+        }).catch((err) => {
+            setStatus(false)
+        })
+    }, [])
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container sx={{maxWidth: '85%'}} maxWidth={false}>
-                <Header title="MINI-SHOP" sections={sections} />
+                <Header title="MINI-SHOP" sections={sections} status={status} />
                 <MainFeaturedPost post={mainFeaturedPost} />
                 <Grid container spacing={4}>
                     {featuredPosts.map((post) => (

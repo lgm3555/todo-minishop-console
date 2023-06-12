@@ -22,9 +22,21 @@ class Client {
         }
 
         return new Promise(async (resolve, reject) => {
-            let response = await axios.request(config);
-            console.log(response.data)
+            try {
+                let response = await axios.request(config);
+                let accessToken = (response['data'] || {})['access_token']
+                let refreshToken = (response['data'] || {})['refresh_token']
 
+                if (accessToken) {
+                    localStorage.setItem(AUTH_ACCESS_TOKEN, accessToken)
+                } else if (refreshToken) {
+                    localStorage.setItem(AUTH_REFRESH_TOKEN, refreshToken)
+                }
+                resolve(response)
+            } catch (error) {
+                console.log("error", error)
+                reject(error)
+            }
         });
     }
 }
