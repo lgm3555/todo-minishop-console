@@ -31,7 +31,7 @@ const featuredPosts = [
         date: 'Nov 12',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content1.gif',
         imageLabel: 'Image Text',
     },
     {
@@ -39,7 +39,7 @@ const featuredPosts = [
         date: 'Nov 11',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content2.gif',
         imageLabel: 'Image Text',
     },
     {
@@ -47,7 +47,7 @@ const featuredPosts = [
         date: 'Nov 12',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content3.gif',
         imageLabel: 'Image Text',
     },
     {
@@ -55,7 +55,7 @@ const featuredPosts = [
         date: 'Nov 11',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content4.gif',
         imageLabel: 'Image Text',
     },
     {
@@ -63,7 +63,7 @@ const featuredPosts = [
         date: 'Nov 12',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content5.gif',
         imageLabel: 'Image Text',
     },
     {
@@ -71,7 +71,7 @@ const featuredPosts = [
         date: 'Nov 11',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content6.gif',
         imageLabel: 'Image Text',
     },
     {
@@ -79,7 +79,7 @@ const featuredPosts = [
         date: 'Nov 12',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content7.gif',
         imageLabel: 'Image Text',
     },
     {
@@ -87,23 +87,7 @@ const featuredPosts = [
         date: 'Nov 11',
         description:
             'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '',
+        image: '/image/content1.gif',
         imageLabel: 'Image Text',
     }
 ];
