@@ -20,16 +20,11 @@ const theme = createTheme();
 export default function Login() {
 
     React.useEffect(() => {
-        const authAccessToken = localStorage.getItem(AUTH_ACCESS_TOKEN);
-
-        check(authAccessToken).then((res) => {
-            if (res.status == 200) {
-
-            }
+        check().then((res) => {
+            console.log(res.data)
         }).catch((err) => {
-            console.log(err)
         })
-    })
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -42,8 +37,7 @@ export default function Login() {
 
         signIn(data).then((res) => {
             if (res.status == 200) {
-                console.log('로그인 완료')
-                localStorage.setItem(AUTH_ACCESS_TOKEN, res.data.accessToken);
+                console.log('로그인 완료' + res.data)
                 window.location.href = '/';
             }
         }).catch((error) => {
