@@ -19,8 +19,8 @@ function CheckPost(props) {
                     <CardMedia
                         component="img"
                         alt="green iguana"
-                        height="140"
-                        image=""
+                        height="450"
+                        image={post.image}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
