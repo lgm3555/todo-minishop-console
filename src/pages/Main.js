@@ -117,6 +117,7 @@ export default function Main() {
 
     React.useEffect(() => {
         check().then((res) => {
+            console.log(res.data)
             if (res.data == 'user') setStatus(true)
             else setStatus(false)
         }).catch((err) => {

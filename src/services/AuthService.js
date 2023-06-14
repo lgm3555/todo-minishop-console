@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Client from "../utils/Client"
+import {AUTH_ACCESS_TOKEN, AUTH_REFRESH_TOKEN} from "../utils/constrants";
 
 const client = new Client();
 
@@ -27,6 +28,9 @@ export const signOut = () => {
     return client.call({
         url: '/auth/sign-out',
         method: 'post'
+    }).then((res) => {
+        localStorage.removeItem(AUTH_ACCESS_TOKEN)
+        localStorage.removeItem(AUTH_REFRESH_TOKEN)
     })
 }
 

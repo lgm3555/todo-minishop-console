@@ -29,7 +29,8 @@ class Client {
 
                 if (accessToken) {
                     localStorage.setItem(AUTH_ACCESS_TOKEN, accessToken)
-                } else if (refreshToken) {
+                }
+                if (refreshToken) {
                     localStorage.setItem(AUTH_REFRESH_TOKEN, refreshToken)
                 }
                 resolve(response)

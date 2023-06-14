@@ -10,9 +10,11 @@ import {signOut} from "../../services/AuthService";
 function Header(props) {
     const { sections, title } = props;
 
-    const handleLogin = () => {
+    const handleButton = () => {
         if (props.status) {
-            signOut().then()
+            signOut().then((res) => {
+                console.log('로그아웃')
+            })
         } else {
             window.location.href = '/signIn';
         }
@@ -36,7 +38,7 @@ function Header(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={2} sx={{textAlign: 'right'}}>
-                    <Button onClick={() => handleLogin} size="small">{props.status ? '로그인' : '로그아웃'}</Button>
+                    <Button onClick={() => handleButton} size="small">{props.status ? '로그아웃' : '로그인'}</Button>
                 </Grid>
             </Grid>
             <Toolbar
