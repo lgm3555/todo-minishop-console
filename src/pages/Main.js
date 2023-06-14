@@ -102,7 +102,7 @@ export default function Main() {
     React.useEffect(() => {
         check().then((res) => {
             console.log(res.data)
-            if (res.data == 'user') setStatus(true)
+            if (res.data == 'active') setStatus(true)
             else setStatus(false)
         }).catch((err) => {
             setStatus(false)

@@ -5,18 +5,18 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Grid from "@mui/material/Grid";
-import {signOut} from "../../services/AuthService";
+import {AUTH_ACCESS_TOKEN, AUTH_REFRESH_TOKEN} from "../../utils/constrants";
 
 function Header(props) {
     const { sections, title } = props;
 
     const handleButton = () => {
         if (props.status) {
-            signOut().then((res) => {
-                console.log('로그아웃')
-            })
+            localStorage.removeItem(AUTH_ACCESS_TOKEN)
+            localStorage.removeItem(AUTH_REFRESH_TOKEN)
+            window.location.href = '/';
         } else {
-            window.location.href = '/signIn';
+            window.location.href = '/sign-in';
         }
     }
 
@@ -38,7 +38,7 @@ function Header(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={2} sx={{textAlign: 'right'}}>
-                    <Button onClick={() => handleButton} size="small">{props.status ? '로그아웃' : '로그인'}</Button>
+                    <Button onClick={handleButton} size="small">{props.status ? '로그아웃' : '로그인'}</Button>
                 </Grid>
             </Grid>
             <Toolbar

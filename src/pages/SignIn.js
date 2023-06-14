@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,21 +7,25 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {check, signIn} from "../services/AuthService";
-import {AUTH_ACCESS_TOKEN} from "../utils/constrants";
+import Toast from "../components/common/Alert";
 
 const theme = createTheme();
 
 export default function Login() {
 
+    const [toast, setToast] = React.useState(false);
+
     React.useEffect(() => {
         check().then((res) => {
-            console.log(res.data)
-        }).catch((err) => {
+            if (res.data == 'active') {
+                window.location.href = '/'
+            }
+        }).catch(err => {
+            console.log(err)
         })
     }, [])
 
@@ -36,12 +39,13 @@ export default function Login() {
         }
 
         signIn(data).then((res) => {
-            if (res.status == 200) {
-                console.log('로그인 완료' + res.data)
+            if (res.data.errorCode) {
+                setToast(true);
+            } else {
                 window.location.href = '/';
             }
-        }).catch((error) => {
-            console.log(error)
+        }).catch((err) => {
+            setToast(true)
         })
     };
 
@@ -57,11 +61,8 @@ export default function Login() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        로그인
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
@@ -69,7 +70,7 @@ export default function Login() {
                             required
                             fullWidth
                             id="username"
-                            label="Username"
+                            label="아이디"
                             name="username"
                             autoFocus
                         />
@@ -78,7 +79,7 @@ export default function Login() {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="패스워드"
                             type="password"
                             id="password"
                         />
@@ -92,22 +93,23 @@ export default function Login() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            로그인
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href="/find-pwd" variant="body2">
                                     패스워드 찾기
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/sign-up" variant="body2">
                                     회원가입
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
+                {toast && <Toast setToast={setToast} status="info" message="로그인 정보를 확인해주세요." />}
             </Container>
         </ThemeProvider>
     );
