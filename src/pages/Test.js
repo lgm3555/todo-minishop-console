@@ -19,21 +19,21 @@ const images = [
     {
         label: 'Bird',
         imgPath:
-            '/image/main2.jpg',
+            '/image/main1.jpg',
     },
     {
         label: 'Bali, Indonesia',
         imgPath:
-            '/image/main3.jpg',
+            '/image/main1.jpg',
     },
     {
         label: 'Goč, Serbia',
         imgPath:
-            '/image/main4.jpg',
+            '/image/main1.jpg',
     },
 ];
 
-function MainFeaturePost() {
+function Test() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     const maxSteps = images.length;
@@ -60,7 +60,7 @@ function MainFeaturePost() {
             >
                 {images.map((step, index) => (
                     <div key={step.label}>
-                        {Math.abs(activeStep - index) <= 10 ? (
+                        {Math.abs(activeStep - index) <= 2 ? (
                             <Box
                                 component="img"
                                 sx={{
@@ -107,4 +107,4 @@ function MainFeaturePost() {
     );
 }
 
-export default MainFeaturePost;
+export default Test;

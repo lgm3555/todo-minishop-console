@@ -2,29 +2,23 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
 import MainFeaturedPost from '../components/pages/MainFeaturedPost';
 import CheckPost from '../components/pages/CheckPost';
 import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 import {check} from "../services/AuthService";
+import {TabContext, TabPanel} from "@mui/lab";
+import Box from "@mui/material/Box";
 
 const sections = [
-    { title: 'Top', url: '#' },
-    { title: 'BOTTOM', url: '#' },
-    { title: 'SHIRT', url: '#' },
-    { title: 'KNIT', url: '#' },
-    { title: 'SHOES', url: '#' },
-    { title: 'ACC', url: '#' },
+    { title: '인기상품', value: '1' },
+    { title: '상의', value: '2' },
+    { title: '하의', value: '3' },
+    { title: '셔츠', value: '4' },
+    { title: '니트', value: '5' },
+    { title: '신발', value: '6' },
+    { title: '악세사리', value: '7' },
 ];
-
-const mainFeaturedPost = {
-    title: '',
-    description: "",
-    image: '',
-    imageText: 'main image description',
-    linkText: ''
-};
 
 const featuredPosts = [
     {
@@ -98,6 +92,7 @@ const theme = createTheme();
 export default function Main() {
 
     const [status, setStatus] = React.useState(false);
+    const [value, setValue] = React.useState('1');
 
     React.useEffect(() => {
         check().then((res) => {
@@ -113,15 +108,28 @@ export default function Main() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container sx={{maxWidth: '85%'}} maxWidth={false}>
-                <Header title="MINI-SHOP" sections={sections} status={status} />
-                <MainFeaturedPost post={mainFeaturedPost} />
-                <Grid container spacing={4}>
-                    {featuredPosts.map((post) => (
-                        <CheckPost key={post.title} post={post} />
-                    ))}
-                </Grid>
+                <TabContext value={value}>
+                    <Header name='main' sections={sections} status={status} setValue={setValue} />
+                    <Box
+                        gap={20}
+                        sx={{
+                            borderTop: 1,
+                            borderColor: 'divider',
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <TabPanel value="1">
+                            <MainFeaturedPost />
+                            <Grid container spacing={4}>
+                                {featuredPosts.map((post, key) => (
+                                    <CheckPost key={key} post={post} />
+                                ))}
+                            </Grid>
+                        </TabPanel>
+                    </Box>
+                </TabContext>
             </Container>
-            <Footer />
         </ThemeProvider>
     );
 }

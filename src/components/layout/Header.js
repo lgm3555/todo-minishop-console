@@ -1,29 +1,41 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Grid from "@mui/material/Grid";
-import {AUTH_ACCESS_TOKEN, AUTH_REFRESH_TOKEN} from "../../utils/constrants";
+import Tab from '@mui/material/Tab';
+import TabList from '@mui/lab/TabList';
 
 function Header(props) {
-    const { sections, title } = props;
 
-    const handleButton = () => {
+    const handleButton = (type) => {
         if (props.status) {
-            localStorage.removeItem(AUTH_ACCESS_TOKEN)
-            localStorage.removeItem(AUTH_REFRESH_TOKEN)
-            window.location.href = '/';
+            if (type === 'mypage') {
+                if (props.name === 'main') {
+                    window.location.href = '/my-page';
+                } else {
+                    window.location.href = '/';
+                }
+            }
+            else {
+                window.location.href = '/';
+            }
         } else {
             window.location.href = '/sign-in';
         }
     }
 
+    const handleChange = (event, newValue) => {
+        props.setValue(newValue);
+    };
+
     return (
         <React.Fragment>
             <Grid container sx={{ my: 3 }}>
                 <Grid item xs={2}>
+                    {props.status ? <Button onClick={() => handleButton('mypage')} size="small">{
+                        props.name === 'main' ? '마이페이지' : '메인화면'
+                    }</Button> : "" }
                 </Grid>
                 <Grid item xs={8}>
                     <Typography
@@ -34,11 +46,11 @@ function Header(props) {
                         noWrap
                         sx={{ flex: 1 }}
                     >
-                        {title}
+                        MINI-SHOP
                     </Typography>
                 </Grid>
                 <Grid item xs={2} sx={{textAlign: 'right'}}>
-                    <Button onClick={handleButton} size="small">{props.status ? '로그아웃' : '로그인'}</Button>
+                    <Button onClick={() => handleButton('login')} size="small">{props.status ? '로그아웃' : '로그인'}</Button>
                 </Grid>
             </Grid>
             <Toolbar
@@ -46,31 +58,14 @@ function Header(props) {
                 variant="dense"
                 sx={{ justifyContent: 'center', gap: 10, borderTop: 1, borderColor: 'divider' }}
             >
-                {sections.map((section) => (
-                    <Link
-                        color="inherit"
-                        noWrap
-                        key={section.title}
-                        variant="body2"
-                        href={section.url}
-                        sx={{ p: 1, flexShrink: 0 }}
-                    >
-                        {section.title}
-                    </Link>
-                ))}
+                <TabList onChange={handleChange}>
+                    {props.sections.map((section, key) => (
+                        <Tab key={key} label={section.title} value={section.value} />
+                    ))}
+                </TabList>
             </Toolbar>
         </React.Fragment>
     );
 }
-
-Header.propTypes = {
-    sections: PropTypes.arrayOf(
-        PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            url: PropTypes.string.isRequired,
-        }),
-    ).isRequired,
-    title: PropTypes.string.isRequired,
-};
 
 export default Header;
