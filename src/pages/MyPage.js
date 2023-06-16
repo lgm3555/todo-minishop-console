@@ -4,6 +4,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Header from "../components/layout/Header";
 import Box from "@mui/material/Box";
 import {TabContext, TabPanel} from "@mui/lab";
+import AuthInfo from "./AuthInfo";
 
 const theme = createTheme();
 
@@ -25,15 +26,14 @@ const MyPage = () => {
                 <TabContext value={value}>
                     <Header name='mypage' sections={sections} status={true} setValue={setValue} />
                     <Box
-                        gap={20}
                         sx={{
                             borderTop: 1,
                             borderColor: 'divider',
                             display: 'flex',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
                         }}
                     >
-                        <TabPanel value="1">정보</TabPanel>
+                        <TabPanel sx={{width: '100%'}} value="1"><AuthInfo /></TabPanel>
                     </Box>
                 </TabContext>
             </Container>

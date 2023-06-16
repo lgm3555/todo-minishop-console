@@ -18,7 +18,7 @@ export default function FindPwd() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        findPwd(data.get('username'), data.get('nickname')).then((res) => {
+        findPwd(data.get('id'), data.get('email')).then((res) => {
             if (res.status === 200) {
                 // Handle successful password retrieval
                 if (res.data) {
@@ -53,18 +53,18 @@ export default function FindPwd() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="username"
+                                    id="id"
                                     label="아이디"
-                                    name="username"
+                                    name="id"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
-                                    id="nickname"
-                                    label="닉네임"
-                                    name="nickname"
+                                    id="email"
+                                    label="이메일"
+                                    name="email"
                                 />
                             </Grid>
                         </Grid>

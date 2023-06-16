@@ -34,7 +34,7 @@ export default function Login() {
         const formData = new FormData(event.currentTarget);
 
         const data = {
-            username: formData.get('username'),
+            id: formData.get('id'),
             password: formData.get('password')
         }
 
@@ -69,9 +69,9 @@ export default function Login() {
                             margin="normal"
                             required
                             fullWidth
-                            id="username"
+                            id="id"
                             label="아이디"
-                            name="username"
+                            name="id"
                             autoFocus
                         />
                         <TextField

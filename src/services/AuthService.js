@@ -3,11 +3,14 @@ import Client from "../utils/Client"
 
 const client = new Client();
 
-export const signUp = (username, password, nickname) => {
+export const signUp = (id, password, name, email, phone, address) => {
     return axios.post("/auth/sign-up", {
-        username: `${username}`,
-        password: `${password}`,
-        nickname: `${nickname}`
+        id:          `${id}`,
+        password:    `${password}`,
+        name:        `${name}`,
+        email:       `${email}`,
+        phone:       `${phone}`,
+        address:     `${address}`,
     })
 }
 
@@ -21,10 +24,10 @@ export const signIn = (data) => {
     })
 };
 
-export const findPwd = (username, nickname) => {
+export const findPwd = (id, email) => {
     return axios.post("/auth/find-pwd", {
-        username: `${username}`,
-        nickname: `${nickname}`
+        id: `${id}`,
+        email: `${email}`
     })
 }
 
@@ -35,6 +38,15 @@ export const refresh = () => {
 export const check = () => {
     return client.call({
         url: `/auth/user`,
+        method: `get`
+    }).catch(err => {
+
+    })
+}
+
+export const authInfo = () => {
+    return client.call({
+        url: `/auth/info`,
         method: `get`
     }).catch(err => {
 

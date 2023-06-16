@@ -21,7 +21,14 @@ export default function SignUp() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        signUp(data.get('username'), data.get('password'), data.get('nickname')).then((res) => {
+        signUp(
+            data.get('id'),
+            data.get('password'),
+            data.get('name'),
+            data.get('email'),
+            data.get('phone'),
+            data.get('address')
+        ).then((res) => {
             if (res.data.errorCode) {
                 setMessage(res.data.errorMessage)
                 setToast(true)
@@ -54,9 +61,9 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="username"
+                                    id="id"
                                     label="아이디"
-                                    name="username"
+                                    name="id"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -74,9 +81,36 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="nickname"
-                                    label="닉네임"
-                                    name="nickname"
+                                    id="name"
+                                    label="이름"
+                                    name="name"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="이메일"
+                                    name="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="phone"
+                                    label="전화번호"
+                                    name="phone"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="address"
+                                    label="주소"
+                                    name="address"
                                 />
                             </Grid>
                         </Grid>
