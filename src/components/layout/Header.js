@@ -5,24 +5,18 @@ import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import Tab from '@mui/material/Tab';
 import TabList from '@mui/lab/TabList';
+import {AUTH_ACCESS_TOKEN, AUTH_REFRESH_TOKEN} from "../../utils/constrants";
 
 function Header(props) {
 
-    const handleButton = (type) => {
-        if (props.status) {
-            if (type === 'mypage') {
-                if (props.name === 'main') {
-                    window.location.href = '/my-page';
-                } else {
-                    window.location.href = '/';
-                }
-            }
-            else {
-                window.location.href = '/';
-            }
-        } else {
-            window.location.href = '/sign-in';
-        }
+    const handleTrans = (type) => {
+        window.location.href = type;
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem(AUTH_ACCESS_TOKEN)
+        localStorage.removeItem(AUTH_REFRESH_TOKEN)
+        window.location.href = '/';
     }
 
     const handleChange = (event, newValue) => {
@@ -33,9 +27,15 @@ function Header(props) {
         <React.Fragment>
             <Grid container sx={{ my: 3 }}>
                 <Grid item xs={2}>
-                    {props.status ? <Button onClick={() => handleButton('mypage')} size="small">{
-                        props.name === 'main' ? '마이페이지' : '메인화면'
-                    }</Button> : "" }
+                    {
+                        props.status ?
+                            props.name == 'main' ?
+                                <Button onClick={() => handleTrans('/my-page')} size="small">마이페이지</Button>
+                                :
+                                <Button onClick={() => handleTrans('/')} size="small">메인화면</Button>
+                            :
+                            ''
+                    }
                 </Grid>
                 <Grid item xs={8}>
                     <Typography
@@ -50,7 +50,13 @@ function Header(props) {
                     </Typography>
                 </Grid>
                 <Grid item xs={2} sx={{textAlign: 'right'}}>
-                    <Button onClick={() => handleButton('login')} size="small">{props.status ? '로그아웃' : '로그인'}</Button>
+                    {
+                        props.status ?
+                            <Button onClick={() => handleLogout()} size="small">로그아웃</Button>
+                            :
+                            <Button onClick={() => handleTrans('/sign-in')} size="small">로그인</Button>
+                    }
+
                 </Grid>
             </Grid>
             <Toolbar

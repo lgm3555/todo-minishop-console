@@ -6,9 +6,9 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import MainFeaturedPost from '../components/pages/MainFeaturedPost';
 import CheckPost from '../components/pages/CheckPost';
 import Header from "../components/layout/Header";
-import {check} from "../services/AuthService";
 import {TabContext, TabPanel} from "@mui/lab";
 import Box from "@mui/material/Box";
+import {check} from "../services/AuthService";
 
 const sections = [
     { title: '인기상품', value: '1' },
@@ -95,12 +95,13 @@ export default function Main() {
     const [value, setValue] = React.useState('1');
 
     React.useEffect(() => {
-        check().then((res) => {
-            console.log(res.data)
-            if (res.data == 'active') setStatus(true)
-            else setStatus(false)
-        }).catch((err) => {
-            setStatus(false)
+        check().then(res => {
+            let active = (res || {}).data;
+            if (active === 'active') {
+                setStatus(true)
+            } else {
+                setStatus(false)
+            }
         })
     }, [])
 

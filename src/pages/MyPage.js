@@ -5,6 +5,7 @@ import Header from "../components/layout/Header";
 import Box from "@mui/material/Box";
 import {TabContext, TabPanel} from "@mui/lab";
 import AuthInfo from "./AuthInfo";
+import {check} from "../services/AuthService";
 
 const theme = createTheme();
 
@@ -19,6 +20,15 @@ const sections = [
 const MyPage = () => {
 
     const [value, setValue] = React.useState('1');
+
+    React.useEffect(() => {
+        check().then(res => {
+            let active = (res || {}).data;
+            if (active != 'active') {
+                window.location.href = '/'
+            }
+        })
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>

@@ -17,11 +17,15 @@ class Client {
             })
         }
 
+        if (!authRefreshToken && config.url == '/auth/refresh') {
+            return false;
+        }
+
         return new Promise(async (resolve, reject) => {
             try {
                 let response = await axios.request(config);
-                let accessToken = (response['data'] || {})['access_token']
-                let refreshToken = (response['data'] || {})['refresh_token']
+                let accessToken = (response['data'] || {})['accessToken']
+                let refreshToken = (response['data'] || {})['refreshToken']
 
                 if (accessToken) {
                     localStorage.setItem(AUTH_ACCESS_TOKEN, accessToken)

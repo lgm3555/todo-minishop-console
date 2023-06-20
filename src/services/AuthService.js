@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Client from "../utils/Client"
+import {AUTH_ACCESS_TOKEN} from "../utils/constrants";
 
 const client = new Client();
 
@@ -32,7 +33,12 @@ export const findPwd = (id, email) => {
 }
 
 export const refresh = () => {
-    return axios.get("/auth/refresh")
+    return client.call({
+        url: `/auth/refresh`,
+        method: `get`
+    }).catch(err => {
+
+    })
 }
 
 export const check = () => {

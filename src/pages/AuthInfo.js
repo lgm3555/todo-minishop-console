@@ -22,16 +22,28 @@ const theme = createTheme({
 
 const AuthInfo = () => {
 
+    const [info, setInfo] = React.useState({
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+    });
+
     React.useEffect(() => {
         authInfo().then((res) => {
-            console.log(res.data)
-
-        }).catch((err) => {
-
+            if (res.data) {
+                setInfo(res.data)
+            } else {
+                window.location.href = '/sign-in'
+            }
+        }).catch(err => {
+            window.location.href = '/sign-in'
         })
     }, [])
 
     const handleChange = (event) => {
+
     };
 
     const handleSave = () => {
@@ -55,14 +67,13 @@ const AuthInfo = () => {
                         <TableBody>
                             <TableRow>
                                 <TableCell>아이디</TableCell>
-                                <TableCell>test</TableCell>
+                                <TableCell>{info.id}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>비밀번호</TableCell>
                                 <TableCell>
                                     <TextField
                                         name="name"
-                                        value={'라나다'}
                                         onChange={handleChange}
                                         size={"small"}
                                     />
@@ -73,7 +84,6 @@ const AuthInfo = () => {
                                 <TableCell>
                                     <TextField
                                         name="name"
-                                        value='TEST'
                                         onChange={handleChange}
                                         size={"small"}
                                     />
@@ -84,7 +94,7 @@ const AuthInfo = () => {
                                 <TableCell>
                                     <TextField
                                         name="name"
-                                        value='TEST'
+                                        value={info.name}
                                         onChange={handleChange}
                                         size={"small"}
                                     />
@@ -95,7 +105,7 @@ const AuthInfo = () => {
                                 <TableCell>
                                     <TextField
                                         name="name"
-                                        value='서울특별시~'
+                                        value={info.email}
                                         onChange={handleChange}
                                         size={"small"}
                                     />
@@ -106,7 +116,7 @@ const AuthInfo = () => {
                                 <TableCell>
                                     <TextField
                                         name="name"
-                                        value='TEST'
+                                        value={info.phone}
                                         onChange={handleChange}
                                         size={"small"}
                                     />
@@ -117,7 +127,7 @@ const AuthInfo = () => {
                                 <TableCell>
                                     <TextField
                                         name="name"
-                                        value='TEST'
+                                        value={info.address}
                                         onChange={handleChange}
                                         size={"small"}
                                     />

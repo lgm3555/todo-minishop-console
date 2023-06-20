@@ -10,24 +10,38 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {check, signIn} from "../services/AuthService";
+import {check, refresh, signIn} from "../services/AuthService";
 import Toast from "../components/common/Alert";
+import {AUTH_ACCESS_TOKEN, AUTH_REFRESH_TOKEN} from "../utils/constrants";
 
 const theme = createTheme();
 
 export default function Login() {
 
+    const [flag, setFlag] = React.useState(false);
     const [toast, setToast] = React.useState(false);
 
     React.useEffect(() => {
-        check().then((res) => {
-            if (res.data == 'active') {
-                window.location.href = '/'
+        check().then(res => {
+            let active = (res || {}).data;
+            if (active === 'active') {
+                window.location.href  = '/'
+            } else {
+                localStorage.removeItem(AUTH_ACCESS_TOKEN);
+                refreshCall()
             }
         }).catch(err => {
             console.log(err)
-        })
-    }, [])
+        });
+    }, [flag])
+
+    const refreshCall = () => {
+        refresh().then(res => {
+            setFlag(true)
+        }).catch(err => {
+            console.log(err)
+        });
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
