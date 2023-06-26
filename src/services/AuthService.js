@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Client from "../utils/Client"
-import {AUTH_ACCESS_TOKEN} from "../utils/constrants";
 
 const client = new Client();
 

@@ -9,82 +9,16 @@ import Header from "../components/layout/Header";
 import {TabContext, TabPanel} from "@mui/lab";
 import Box from "@mui/material/Box";
 import {check} from "../services/AuthService";
+import {productCategory} from "../services/ProductService";
 
 const sections = [
-    { title: '인기상품', value: '1' },
-    { title: '상의', value: '2' },
-    { title: '하의', value: '3' },
-    { title: '셔츠', value: '4' },
-    { title: '니트', value: '5' },
-    { title: '신발', value: '6' },
-    { title: '악세사리', value: '7' },
-];
-
-const featuredPosts = [
-    {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content1.gif',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content2.gif',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content3.gif',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content4.gif',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content5.gif',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content6.gif',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content7.gif',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: '/image/content1.gif',
-        imageLabel: 'Image Text',
-    }
+    { title: '인기상품', value: '0' },
+    { title: '상의', value: '1' },
+    { title: '하의', value: '2' },
+    { title: '셔츠', value: '3' },
+    { title: '니트', value: '4' },
+    { title: '신발', value: '5' },
+    { title: '악세사리', value: '6' },
 ];
 
 const theme = createTheme();
@@ -92,7 +26,8 @@ const theme = createTheme();
 export default function Main() {
 
     const [status, setStatus] = React.useState(false);
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = React.useState('0');
+    const [featuredPost, setFeaturedPost] = React.useState([]);
 
     React.useEffect(() => {
         check().then(res => {
@@ -104,6 +39,13 @@ export default function Main() {
             }
         })
     }, [])
+
+    React.useEffect(() => {
+        productCategory(value).then(res => {
+            console.log(value)
+            setFeaturedPost(res.data)
+        })
+    }, [value])
 
     return (
         <ThemeProvider theme={theme}>
@@ -120,10 +62,15 @@ export default function Main() {
                             justifyContent: 'center'
                         }}
                     >
-                        <TabPanel value="1">
-                            <MainFeaturedPost />
+                        <TabPanel value={value}>
+                            {
+                                value == 0 ?
+                                    <MainFeaturedPost />
+                                    :
+                                    ''
+                            }
                             <Grid container spacing={4}>
-                                {featuredPosts.map((post, key) => (
+                                {featuredPost.map((post, key) => (
                                     <CheckPost key={key} post={post} />
                                 ))}
                             </Grid>

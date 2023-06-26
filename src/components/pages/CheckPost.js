@@ -12,6 +12,10 @@ import Button from "@mui/material/Button";
 function CheckPost(props) {
     const { post } = props;
 
+    const truncatedDescription = post.description.length > 40
+        ? `${post.description.slice(0, 40)}...`
+        : post.description;
+
     return (
         <Grid item xs={4} md={3}>
             <CardActionArea component="a" href="#">
@@ -20,35 +24,24 @@ function CheckPost(props) {
                         component="img"
                         alt="green iguana"
                         height="450"
-                        image={post.image}
+                        image={post.imageUrl}
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Lizard
+                        <Typography gutterBottom variant="h7" component="div" style={{ height: "60px", overflow: "hidden" }}>
+                            {post.productName}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000
-                            species, ranging across all continents except Antarctica
+                            {truncatedDescription}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small">Share</Button>
-                        <Button size="small">Learn More</Button>
+                    <CardActions sx={{ justifyContent: "space-between" }}>
+                        <Button size="small">장바구니 담기</Button>
+                        <Button size="small">상세페이지</Button>
                     </CardActions>
                 </Card>
             </CardActionArea>
         </Grid>
     );
 }
-
-CheckPost.propTypes = {
-    post: PropTypes.shape({
-        date: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        imageLabel: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-    }).isRequired,
-};
 
 export default CheckPost;

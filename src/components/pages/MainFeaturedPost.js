@@ -12,22 +12,18 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
     {
-        label: 'San Francisco – Oakland Bay Bridge, United States',
         imgPath:
             '/image/main1.jpg',
     },
     {
-        label: 'Bird',
         imgPath:
             '/image/main2.jpg',
     },
     {
-        label: 'Bali, Indonesia',
         imgPath:
             '/image/main3.jpg',
     },
     {
-        label: 'Goč, Serbia',
         imgPath:
             '/image/main4.jpg',
     },
@@ -59,7 +55,7 @@ function MainFeaturePost() {
                 enableMouseEvents
             >
                 {images.map((step, index) => (
-                    <div key={step.label}>
+                    <div key={index}>
                         {Math.abs(activeStep - index) <= 10 ? (
                             <Box
                                 component="img"
@@ -70,7 +66,6 @@ function MainFeaturePost() {
                                     width: '100%',
                                 }}
                                 src={step.imgPath}
-                                alt={step.label}
                             />
                         ) : null}
                     </div>
