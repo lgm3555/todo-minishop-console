@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import {TabContext, TabPanel} from "@mui/lab";
 import AuthInfo from "./AuthInfo";
 import {check} from "../services/AuthService";
+import OrderHistory from "./OrderHistory";
 
 const theme = createTheme();
 
@@ -44,6 +45,7 @@ const MyPage = () => {
                         }}
                     >
                         <TabPanel sx={{width: '100%'}} value="1"><AuthInfo /></TabPanel>
+                        <TabPanel sx={{width: '100%'}} value="2"><OrderHistory /></TabPanel>
                     </Box>
                 </TabContext>
             </Container>

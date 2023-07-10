@@ -76,6 +76,7 @@ const AuthInfo = () => {
                                         name="name"
                                         onChange={handleChange}
                                         size={"small"}
+                                        sx={{ fontSize: '13px' }}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -86,6 +87,7 @@ const AuthInfo = () => {
                                         name="name"
                                         onChange={handleChange}
                                         size={"small"}
+                                        sx={{ fontSize: '13px' }}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -97,6 +99,7 @@ const AuthInfo = () => {
                                         value={info.name}
                                         onChange={handleChange}
                                         size={"small"}
+                                        sx={{ fontSize: '13px' }}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -108,6 +111,7 @@ const AuthInfo = () => {
                                         value={info.email}
                                         onChange={handleChange}
                                         size={"small"}
+                                        sx={{ fontSize: '13px' }}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -119,6 +123,7 @@ const AuthInfo = () => {
                                         value={info.phone}
                                         onChange={handleChange}
                                         size={"small"}
+                                        sx={{ fontSize: '13px' }}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -130,6 +135,7 @@ const AuthInfo = () => {
                                         value={info.address}
                                         onChange={handleChange}
                                         size={"small"}
+                                        sx={{ fontSize: '13px' }}
                                     />
                                 </TableCell>
                             </TableRow>

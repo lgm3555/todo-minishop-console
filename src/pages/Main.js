@@ -42,7 +42,6 @@ export default function Main() {
 
     React.useEffect(() => {
         productCategory(value).then(res => {
-            console.log(value)
             setFeaturedPost(res.data)
         })
     }, [value])
@@ -59,7 +58,7 @@ export default function Main() {
                             borderTop: 1,
                             borderColor: 'divider',
                             display: 'flex',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
                         }}
                     >
                         <TabPanel value={value}>
@@ -69,7 +68,7 @@ export default function Main() {
                                     :
                                     ''
                             }
-                            <Grid container spacing={4}>
+                            <Grid container spacing={1}>
                                 {featuredPost.map((post, key) => (
                                     <CheckPost key={key} post={post} />
                                 ))}

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -18,8 +17,8 @@ function CheckPost(props) {
 
     return (
         <Grid item xs={4} md={3}>
-            <CardActionArea component="a" href="#">
-                <Card sx={{ maxWidth: 500 }}>
+            <CardActionArea component="a" href="#" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Card sx={{ maxWidth: '85%' }}>
                     <CardMedia
                         component="img"
                         alt="green iguana"
